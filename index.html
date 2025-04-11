@@ -1,17 +1,18 @@
 <!DOCTYPE html>
-<html lang="pt-BR">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pesquisa de Produtos na Amazon</title>
+    <title>Resultado da Pesquisa - Sinal da Amazon Ofertas</title>
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Pesquise Produtos na Amazon e Analise</h1>
-    <input type="text" id="pesquisaInput" placeholder="Pesquise por produtos...">
-    <button id="pesquisarBtn">Pesquisar</button>
-    <div id="resultados"></div>
+    <h1>Pesquise por Produtos e Analise</h1>
+    <input type="text" id="searchQuery" placeholder="Digite o produto que você procura...">
+    <button onclick="searchAndAnalyze()">Pesquisar e Analisar</button>
 
-    <script src="script.js"></script>
+    <div id="productList"></div>
+
+    <script src="app.js"></script>
 </body>
 </html>
