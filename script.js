@@ -1,33 +1,51 @@
-async function pesquisarProdutos() {
-    const pesquisa = document.getElementById("pesquisaInput").value.toLowerCase();
-    const container = document.getElementById("resultados");
-    container.innerHTML = "<p>Buscando produtos...</p>";
+async function searchAndAnalyze() {
+    const query = document.getElementById('searchQuery').value;
 
-    // Aqui você precisa chamar o scraping ou a API que você configurou para buscar os produtos.
-    // Para simplificar, vamos simular um resultado com a variável 'produtos' obtida no scraping.
+    if (!query) {
+        alert('Por favor, digite um produto para pesquisar!');
+        return;
+    }
 
-    // Exemplo de produtos simulados (retire isso quando for conectar com o seu código de scraping)
-    const produtos = [
-        { titulo: "Panela de Pressão", preco: "R$ 150,00", imagem: "https://via.placeholder.com/150", linkProduto: "https://www.amazon.com.br/dp/B08L5F1H1V" },
-        { titulo: "Panela Elétrica", preco: "R$ 99,90", imagem: "https://via.placeholder.com/150", linkProduto: "https://www.amazon.com.br/dp/B08L5F1H1V" }
-    ];
+    const products = await buscarProdutosAmazon(query);
 
-    // Exibir os resultados encontrados
-    container.innerHTML = "";
-    produtos.forEach(produto => {
-        const div = document.createElement("div");
-        div.className = "produto";
-        div.innerHTML = `
-            <img src="${produto.imagem}" alt="${produto.titulo}" />
-            <div>
-                <h3>${produto.titulo}</h3>
-                <p><strong>Preço:</strong> ${produto.preco}</p>
-                <p><a href="${produto.linkProduto}" target="_blank">Ir para o produto na Amazon</a></p>
-            </div>
-            <div style="clear: both;"></div>
-        `;
-        container.appendChild(div);
-    });
+    displayProducts(products);
 }
 
-document.getElementById("pesquisarBtn").onclick = pesquisarProdutos;
+async function buscarProdutosAmazon(query) {
+    // Simulando a resposta do scraping (use Puppeteer ou outra abordagem para pegar dados reais)
+    const products = [
+        {
+            titulo: 'Panela de Pressão 5L',
+            preco: 'R$ 199,99',
+            imagem: 'https://m.media-amazon.com/images/I/61BvQd9OVZL._AC_SX679_.jpg',
+            linkProduto: 'https://www.amazon.com.br/dp/B08L5F1H1V'
+        },
+        {
+            titulo: 'Panela Elétrica',
+            preco: 'R$ 149,90',
+            imagem: 'https://m.media-amazon.com/images/I/61kHg8h3tiL._AC_SX679_.jpg',
+            linkProduto: 'https://www.amazon.com.br/dp/B08H4P4P24'
+        }
+    ];
+
+    return products;
+}
+
+function displayProducts(products) {
+    const productList = document.getElementById('productList');
+    productList.innerHTML = ''; // Limpa o conteúdo anterior
+
+    products.forEach(product => {
+        const productDiv = document.createElement('div');
+        productDiv.classList.add('product');
+
+        productDiv.innerHTML = `
+            <img src="${product.imagem}" alt="${product.titulo}">
+            <h3>${product.titulo}</h3>
+            <p>${product.preco}</p>
+            <a href="${product.linkProduto}" target="_blank">Ver Produto</a>
+        `;
+
+        productList.appendChild(productDiv);
+    });
+}
